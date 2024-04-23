@@ -1,6 +1,8 @@
 package com.sds.testapp.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +25,13 @@ public class NoticeController {
 	
 	@GetMapping("/notice/list")
 	public String getList(Model model) {
-		List noticeList = noticeService.selectAll(); //3단계: 일시키기 
+		//레코드를 가져올때 모두 한꺼번에 가져오지 말고, 현재 페이지에서 볼 레코드만 골라서 가져오자 
+		//메모리 효율성 극대화 
+		Map map =  new HashMap(); // n부터~ m개 까지의 레코드를가져오기 위한 매개변수 모아놓을 맵
+		map.put("startIndex", 10); //mybatis에서 꺼내야 하므로,  mybatis에서 명시된 변수명을 이용
+		map.put("rowCount", 10);
+		
+		List noticeList = noticeService.selectAll(map); //3단계: 일시키기 
 		model.addAttribute("noticeList", noticeList); //4단계: 결과 저장 
 		
 		return "notice/list";    

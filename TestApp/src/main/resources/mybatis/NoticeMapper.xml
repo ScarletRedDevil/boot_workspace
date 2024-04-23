@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
 <mapper namespace="com.sds.testapp.model.notice.NoticeDAO">
 
-	<select id="selectAll" resultType="Notice">
-		select * from notice
+	<select id="selectAll" resultType="Notice" parameterType="java.util.Map">
+		select * from notice limit #{startIndex}, #{rowCount}
 	</select>
 
 	<insert id="insert" parameterType="Notice">

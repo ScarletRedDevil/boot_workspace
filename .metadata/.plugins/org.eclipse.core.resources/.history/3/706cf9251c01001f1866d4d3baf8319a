@@ -1,0 +1,5 @@
+package com.sds.testapp.common;
+
+public class Pager {
+
+}
