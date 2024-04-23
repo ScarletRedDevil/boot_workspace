@@ -1,0 +1,18 @@
+spring.application.name=TestApp
+
+server.port=7979
+
+#Thymeleaf 템플릿 엔진에 대한 사용설정
+spring.thymeleaf.enabled=true  
+
+#캐시를 비활성화 
+spring.thymeleaf.cache=false
+
+#접두어   /templates
+spring.thymeleaf.prefix=classpath:/templates/
+
+#접미어 
+spring.thymeleaf.suffix=.html
+
+#인코딩 
+spring.thymeleaf.encoding=UTF-8

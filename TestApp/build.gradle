@@ -1,0 +1,49 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.5'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	
+	
+	implementation 'mysql:mysql-connector-java:5.1.49'
+	
+	//스프링부트에서 데이터베이스 연동을 위해 boot-starter-jdbc 등록 
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc:3.2.4'
+	
+	//스프링 mvc에서는 mybatis 와  mybatis-spring 을 둘다 다운로드 받아야 했지만 
+	//부트에서는 mybatis-spring-boot-start 만 받으면 된다
+	// https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+	
+	
+	
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

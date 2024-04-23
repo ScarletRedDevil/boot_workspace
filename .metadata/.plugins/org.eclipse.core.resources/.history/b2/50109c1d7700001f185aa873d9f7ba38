@@ -1,0 +1,4 @@
+spring.application.name=TestApp
+
+
+server.port=7979

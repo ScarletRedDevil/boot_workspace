@@ -1,0 +1,16 @@
+spring.application.name=TestApp
+
+server.port=7979
+#Thymeleaf 템플릿 엔진에 대한 사용설정
+spring.thymeleaf.enabled=true
+
+#캐시 비활성화
+spring.thymeleaf.cache=false
+
+#접두어 ( /WEB-INF 같은거), boot 기본설정은 templates
+spring.thymeleaf.prefix=classpath:/templates/
+#접미
+spring.thymeleaf.suffix=.html
+
+#인코딩
+spring.thymeleaf.encoding=UTF-8

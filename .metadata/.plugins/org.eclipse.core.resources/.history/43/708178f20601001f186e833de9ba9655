@@ -1,0 +1,22 @@
+package com.sds.testapp.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+
+@Controller
+public class BoardController {
+
+	@GetMapping("/board/list")
+	public String getList() {
+		return null;
+	}
+	
+	@GetMapping("/board/write")
+	public String getRegistForm() {
+		
+		return null;
+	}
+	
+}

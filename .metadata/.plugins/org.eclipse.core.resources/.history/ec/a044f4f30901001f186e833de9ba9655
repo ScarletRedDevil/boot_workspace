@@ -1,0 +1,18 @@
+package com.sds.testapp.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class NoticeController {
+	
+	@GetMapping("/notice/list")
+	public String GetList() {
+		return "notice/list";
+	}
+	@GetMapping("/notice/writeform")
+	public String getRegistForm() {
+		return "notice/write";
+	}
+
+}
