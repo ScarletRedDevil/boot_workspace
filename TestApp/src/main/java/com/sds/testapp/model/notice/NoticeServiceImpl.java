@@ -15,15 +15,22 @@ public class NoticeServiceImpl implements NoticeService{
 	@Autowired
 	private NoticeDAO noticeDAO;
 	
-	@Override
+	public int getTotalCount() {
+		return noticeDAO.getTotalCount();
+	}
+	
 	public List selectAll(Map map) {
 		return noticeDAO.selectAll(map);
 	}
 
-	@Override
+	//상세보기
 	public Notice select(int notice_idx) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		noticeDAO.updateHit(notice_idx);
+
+		Notice notice = noticeDAO.select(notice_idx);
+		
+		return notice;
 	}
 
 	@Override
@@ -36,13 +43,19 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public void update(Notice notice) {
-		// TODO Auto-generated method stub
+	public void update(Notice notice)throws NoticeException {
+		int result = noticeDAO.update(notice);
+		if(result<1) {
+			throw new NoticeException("수정 실패");
+		}
 	}
 
 	@Override
-	public void delete(Notice notice) {
-		// TODO Auto-generated method stub
+	public void delete(Notice notice)throws NoticeException {
+		int result = noticeDAO.delete(notice);
+		if(result <1) {
+			throw new NoticeException("삭제 실패");
+		}
 	}
 	
 }

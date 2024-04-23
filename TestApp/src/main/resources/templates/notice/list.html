@@ -15,18 +15,20 @@
 	    <table class="table table-dark table-hover">
 	        <thead>
 	            <tr>
-	                <td>No</td>
-	                <td>제목</td>
-	                <td>작성자</td>
-	                <td>등록일</td>
-	                <td>조회수</td>
+	                <th>No</th>
+	                <th>제목</th>
+	                <th>작성자</th>
+	                <th>등록일</th>
+	                <th>조회수</th>
 	            </tr>
 	        </thead>
 	        <tbody>
 	            
-	            <tr th:each="notice, i:${noticeList}">
-	                <td th:text="${i.index+1}"></td>
-	                <td th:text="${notice.title}"></td>
+	            <tr th:each="notice, i  : ${noticeList}">
+	                <td th:text="${pager.num - i.index}"></td>
+	                <td>
+	                	<a th:href="@{/notice/detail(notice_idx=${notice.notice_idx})}" th:text="${notice.title}"></a>
+	                </td>
 	                <td th:text="${notice.writer}"></td>
 	                <td th:text="${notice.regdate}"></td>
 	                <td th:text="${notice.hit}"></td>
@@ -34,6 +36,14 @@
 	            <tr>
 	            	<td colspan="5">
 	            		<button class="btn btn-primary" onClick="location.href='/notice/writeform';">글등록</button>
+
+						<ul class="pagination float-right">
+						    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+						    <li th:each="i : ${#numbers.sequence(pager.firstPage,pager.lastPage)}" th:class="${pager.currentPage==i}? 'page-item active' : 'page-item'">                                    
+						    	<a class="page-link" th:href="@{/notice/list(currentPage=${i})}" th:text="${i}">1</a>
+						    </li>
+						    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+						</ul>	            		
 	            	</td>
 	            </tr>
 	        </tbody>
