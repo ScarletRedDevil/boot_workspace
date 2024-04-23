@@ -1,0 +1,13 @@
+package com.sds.testapp.model.notice;
+
+import java.util.List;
+
+import com.sds.testapp.domain.Notice;
+
+public interface NoticeService {
+	public List selectAll();
+	public Notice select(int notice_idx);
+	public int insert (Notice notice);
+	public int update (Notice notice);
+	public int delete(Notice notice);
+}
