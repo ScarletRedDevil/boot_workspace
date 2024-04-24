@@ -6,20 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class BoardController {
 	
-	@GetMapping("/board/list")
-	public String getList() {
+	//메인페이지 요청 처리 
+	@GetMapping("/board/main")
+	public String getMain() {
 		
-		return "board/list";    
+		return "board/index";
 	}
 	
-	@GetMapping("/board/writeform")
-	public String getRegistForm() {
-		
-		return "board/write";
-	}
 }
-
-
-
-
-

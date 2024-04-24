@@ -1,0 +1,52 @@
+package com.sds.testapp.model.board;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sds.testapp.domain.Board;
+import com.sds.testapp.exception.BoardException;
+
+@Service
+public class BoardServiceImpl implements BoardService{
+
+	@Autowired
+	private MybatisBoardDAO mybatisBoardDAO;
+	
+	
+	public List selectAll(Map map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Board select(int board_idx) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void insert(Board board) throws BoardException{
+		int result = mybatisBoardDAO.insert(board);
+		
+		if(result < 1) {
+			throw new BoardException("글등록 실패");
+		}
+		
+	}
+
+	@Override
+	public void update(Board board) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(Board board) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

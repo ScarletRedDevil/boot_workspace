@@ -1,0 +1,5 @@
+package com.sds.testapp.model.board;
+
+public interface BoardService {
+
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<title>Insert title here</title>
+</head>
+<body style="background:yellow">
+	<div class="container">
+	
+		<div class="row mt-3">
+			<!-- row 안에 둔 요소들은 같은 수평선 상에 올릴 수 있다. -->
+			<div class="col-md-3">
+				<form id="form1">
+				    <div class="form-group">
+				        <input type="text" class="form-control" placeholder="Enter title" name="title">
+				    </div>
+				    
+				    <div class="form-group">
+				        <input type="text" class="form-control" placeholder="Enter title" name="writer">
+				    </div>
+				    
+				    <div class="form-group">
+				        <textarea class="form-control" placeholder="Enter title" name="content"></textarea>
+				    </div>
+				    
+				    <button type="button" class="btn btn-info" id="bt_regist">등록</button>
+				</form>			
+			</div>	
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-12">
+						<form id="form2">
+							<select>
+								<option>검색 구분 ▼</option>
+								<option>제목</option>
+								<option>작성자</option>
+								<option>내용</option>
+							</select>
+							<input type="text">
+							<button type="button" class="btn btn-primary" id="bt_search">검색</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">결과목록행</div>
+			</div>	
+			<div class="col-md-3">
+				<form id="form3">
+				    <div class="form-group">
+				        <input type="text" class="form-control" placeholder="Enter title" name="title">
+				    </div>
+				    
+				    <div class="form-group">
+				        <input type="text" class="form-control" placeholder="Enter title" name="title">
+				    </div>
+				    
+				    <div class="form-group">
+				        <textarea class="form-control" placeholder="Enter title" name="title"></textarea>
+				    </div>
+				    
+				    <button type="button" class="btn btn-info" id="bt_edit">수정</button>
+				    <button type="button" class="btn btn-info" id="bt_del">삭제</button>
+				</form>			
+			</div>	
+		</div>		
+	</div>	
+</body>
+</html>
+<script type="text/javascript">
+
+function getList(){
+	$.ajax({
+		url:"/board",
+		
+	})
+}
+
+function regist(){
+	//JQjuer Ajax 에서 data 속성 작성 시 일일이 파라미터를 명시하면, 양이 많으면 유지보수성이 낮아짐
+	//기존의 폼 태그를  data에 대입하는 방법을 이용해보자 , 즉 form태그 안의 컴포넌트들의 파라미터명과 그 값을
+	//문자열화 시켜주는 메서드
+	//console.log($("#form1").serialize()); //title=~~&writer=$~~&content=~~
+	
+	$.ajax({
+		url:"/board",
+		type:"POST",
+		data:$("#form1").serialize(),
+		success:function(result, status, xhr){
+			alert("게시물이 되었습니다");
+		},
+		error:function(xhr, status, err){
+			alert("게시물 등록 실패");
+		}
+	});
+}
+
+$(function(){
+	$("#bt_regist").click(function(){
+		regist();
+	});	
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+

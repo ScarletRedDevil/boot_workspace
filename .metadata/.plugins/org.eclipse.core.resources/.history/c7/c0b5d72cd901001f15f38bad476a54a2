@@ -1,0 +1,5 @@
+package com.sds.testapp.domain;
+
+public class Board {
+
+}
