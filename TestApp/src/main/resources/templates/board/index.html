@@ -75,33 +75,38 @@
 </body>
 </html>
 <script type="text/javascript">
+class Board{
+	constructor(data){
+		this.tag="<table width='100%' border='1px'>";
+		this.tag+="<tr>";								
+
+		this.tag+="<th>No</th>";								
+		this.tag+="<th>제목</th>";								
+		this.tag+="<th>작성자</th>";								
+		this.tag+="<th>등록일</th>";								
+		this.tag+="<th>조회수</th>";								
+		this.tag+="</tr>";
+		
+		for(let i=0;i<data.length;i++){
+			let board = data[i]; //i번째 json 꺼내기 ?board_idx=3
+			this.tag+="<tr>";								
+			this.tag+="<td>No</td>";								
+			this.tag+="<td><a href=\"javascript:getDetail("+board.board_idx+")\">"+board.title+"</a></td>";								
+			this.tag+="<td>"+board.writer+"</td>";								
+			this.tag+="<td>"+board.regdate+"</td>";								
+			this.tag+="<td>"+board.hit+"</td>";								
+			this.tag+="</tr>";		
+		}
+		this.tag+="</table>";
+	}
+}
+
 
 //서버에서 전송된, 데이터를 화면에 렌더링하기 
 function render(data){
-	let tag="<table width='100%' border='1px'>";
-	tag+="<tr>";								
-
-	tag+="<th>No</th>";								
-	tag+="<th>제목</th>";								
-	tag+="<th>작성자</th>";								
-	tag+="<th>등록일</th>";								
-	tag+="<th>조회수</th>";								
-	tag+="</tr>";
+	let board = new Board(data);
 	
-	for(let i=0;i<data.length;i++){
-		let board = data[i]; //i번째 json 꺼내기 ?board_idx=3
-		tag+="<tr>";								
-		tag+="<td>No</td>";								
-		tag+="<td><a href=\"javascript:getDetail("+board.board_idx+")\">"+board.title+"</a></td>";								
-		tag+="<td>"+board.writer+"</td>";								
-		tag+="<td>"+board.regdate+"</td>";								
-		tag+="<td>"+board.hit+"</td>";								
-		tag+="</tr>";		
-	}
-	
-	tag+="</table>";
-	
-	$("#listBox").html(tag);		
+	$("#listBox").html(board.tag);		
 	
 }
 
@@ -196,7 +201,7 @@ function findList(){
 		success:function(result, status, xhr){
 			console.log(result);
 			
-			//렌더링..
+			render(result);//렌더링..
 		}
 	});
 }
