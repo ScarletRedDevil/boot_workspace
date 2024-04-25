@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -9,20 +9,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Anime | Template</title>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
-
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="/site/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="/site/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="/site/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="/site/css/plyr.css" type="text/css">
-    <link rel="stylesheet" href="/site/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="/site/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="/site/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="/site/css/style.css" type="text/css">
+	<!--  -->
+	<th:block th:replace="~{fragments/header_link::header_link}"></th:block>
+    
 </head>
 
 <body>
