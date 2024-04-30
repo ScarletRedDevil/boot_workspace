@@ -28,6 +28,34 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//MySql 드라이버 
+	// https://mvnrepository.com/artifact/mysql/mysql-connector-java
+	implementation 'mysql:mysql-connector-java:5.1.49'
+	
+	//spring jdbc , 스프링부트에서 db연동을 위해 필수
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-jdbc
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc:3.2.5'
+	
+	//mybatis, @mapper가 지원
+	// https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+	
+	//로컬 유저 라이브러리 추가
+	implementation files('lib/kobis-opcl-rest-v1.0.jar', 'lib/kobis-opcl-soap-v1.0.jar')
+	
+	//json simple (String 을 json으로 변환할 때)
+	// https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
+	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+	
+	//gson (json을 java 객체로 전환할때)
+	// https://mvnrepository.com/artifact/com.google.code.gson/gson
+	implementation 'com.google.code.gson:gson:2.9.1'
+	
+	// https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
+	compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
+	
+	
 }
 
 tasks.named('test') {
