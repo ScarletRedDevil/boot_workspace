@@ -1,6 +1,0 @@
-package com.sds.testapp.exception;
-
-public class NoticeException extends RuntimeException{
-	
-	
-}

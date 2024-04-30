@@ -1,9 +1,0 @@
-package com.sds.testapp.common;
-
-//페이징처리 공식을 반복수행 하지않기 위한 전담 객체
-public class Pager {
-	private int totalRecord; //총 레코드 수
-	private int pageSize=10; // 페이지당 레코드 수
-	private int totalPage; //총 페이지수
-	private int blockSize=10; //블럭당 페이지 수 
-}
