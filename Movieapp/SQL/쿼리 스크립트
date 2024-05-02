@@ -1,6 +1,6 @@
-create table sns(
-	sns_idx int primary key auto_increment
-	, sns_name varchar(12)
+create  table  sns(
+	sns_idx  int primary key auto_increment 
+	, sns_name  varchar(12)
 );
 
 insert into sns(sns_name) values('google');
@@ -8,33 +8,35 @@ insert into sns(sns_name) values('naver');
 insert into sns(sns_name) values('kakao');
 insert into sns(sns_name) values('homepage');
 
-create table role(
-	role_idx int primary key auto_increment
-	, role_name varchar(12)
+create  table  role(
+	role_idx  int primary key auto_increment 
+	, role_name  varchar(12)
 );
 
 insert into role(role_name) values('ADMIN');
 insert into role(role_name) values('USER');
 insert into role(role_name) values('GUEST');
 
-drop table member;
-
 create table member(
-	member_idx int primary key auto_increment
+   	  member_idx int primary key auto_increment  
 	, uid varchar(43)
 	, nickname varchar(20)
 	, email varchar(30)
 	, sns_idx int 
-	, role_idx int
-	, constraint fk_sns_member foreign key(sns_idx) references sns(sns_idx)
-	, constraint fk_role_member foreign key(role_idx) references role(role_idx)
-)default character encoding utf8;
+	, role_idx int 
+	, constraint fk_sns_member  foreign key(sns_idx) references sns (sns_idx)
+	, constraint fk_role_member  foreign key(role_idx) references role (role_idx)
+) default character set utf8;
 
 create table member_detail(
-	member_detail_idx int primary key auto_increment
-	,password varchar(64)
-	,phone varchar(14)
-	,addr varchar(70)
-	,member_idx int 
-	, constraint fk_member_member_detail foreign key (member_idx)references member (member_idx)
-)default character set utf8;
+	member_detail_idx  int  primary key auto_increment 
+	, password  varchar(64)
+	, phone varchar(14)
+	, addr varchar(70)
+	, member_idx int 
+	, constraint  fk_member_member_detail  foreign key (member_idx) references member (member_idx)	
+) default character set utf8;
+
+
+
+

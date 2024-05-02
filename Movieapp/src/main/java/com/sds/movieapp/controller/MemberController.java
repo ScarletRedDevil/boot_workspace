@@ -11,13 +11,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sds.movieapp.domain.Member;
+import com.sds.movieapp.domain.Role;
+import com.sds.movieapp.exception.MemberException;
+import com.sds.movieapp.model.member.MemberService;
 import com.sds.movieapp.model.movie.NaverOAuthToken;
 import com.sds.movieapp.sns.NaverLogin;
 
@@ -31,11 +37,45 @@ public class MemberController {
 	@Autowired
 	private NaverLogin naverLogin;
 	
+	@Autowired
+	private MemberService memberService;
+	
 	//로그인 폼 요청 처리
 	@GetMapping("/member/loginform")
 	public String getLoginForm() {
 		
 		return "member/login";
+	}
+	//로그인 요청 처리(스프링 부트의 시큐리티가 로그인 검증 하므로 로그인 성공 시 갈 페이지만 매핑)
+	@PostMapping("/member/login")
+	public String login(Member member) {
+		
+		return "redirect:/";//로그인 성공 시 메인으로 리다이렉트
+	}
+	
+	//회원가입 폼 요청 처리
+	@GetMapping("/member/joinform")
+	public String getJoinForm() {
+
+		return "member/join";
+	}
+	
+	//홈페이지 회원가입 요청 처리
+	@PostMapping("/member/join")
+	public String join(Member member) {
+		
+		log.info("member uid "+member.getUid());
+		log.info("member uid "+member.getEmail());
+		log.info("member uid "+member.getNickname());
+		log.info("member uid "+member.getSns().getSns_name());
+		
+		Role role = new Role();
+		role.setRole_name("USER");
+		member.setRole(role);
+		
+		memberService.regist(member);
+		
+		return null;
 	}
 	
 	//네이버 서버에서 들어온 콜백 요청 처리
@@ -129,6 +169,15 @@ public class MemberController {
 		//세션 할당해 메인으로 보냄
 		
 		return null;
+	}
+	
+	@ExceptionHandler(MemberException.class)
+	public ModelAndView handle(MemberException e) {
+		
+		ModelAndView mav = new ModelAndView("error/result");
+		mav.addObject("e",e);
+		
+		return mav;
 	}
 
 }

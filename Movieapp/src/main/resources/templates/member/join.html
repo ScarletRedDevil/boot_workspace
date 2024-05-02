@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Anime Template">
+    <meta name="keywords" content="Anime, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Anime | Template</title>
+	
+	<!-- 헤더링크 -->
+	<th:block th:replace="~{fragments/header_link :: header_link}"/>
+	
+</head>
+
+<body>
+    <!-- Page Preloder -->
+	<th:block th:replace="~{fragments/preloader :: preloader}"/>
+	
+    <!-- Header Section Begin -->
+    <th:block th:replace="~{fragments/header :: header}"/>
+    <!-- Header End -->
+
+    <!-- Normal Breadcrumb Begin -->
+    <section class="normal-breadcrumb set-bg" data-setbg="/site/img/normal-breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="normal__breadcrumb__text">
+                        <h2>Sign Up</h2>
+                        <p>Welcome to the official Anime blog.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Normal Breadcrumb End -->
+
+    <!-- Signup Section Begin -->
+    <section class="signup spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="login__form">
+                        <h3>Sign Up</h3>
+                        <form id="form1">
+							<input type="hidden" name="sns.sns_name" value="homepage">
+                            <div class="input__item">
+                                <input type="text" name="uid" placeholder="Your ID">
+                                <span class="icon_profile"></span>
+                            </div>
+
+                            <div class="input__item">
+                                <input type="password" name="memberDetail.password" placeholder="Password">
+                                <span class="icon_lock"></span>
+                            </div>
+
+                            <div class="input__item">
+                                <input type="text" name="email" placeholder="Email address">
+                                <span class="icon_mail"></span>
+                            </div>
+                            
+                            <div class="input__item">
+                                <input type="text" name="nickname" placeholder="Your Name">
+                                <span class="icon_profile"></span>
+                            </div>
+                            
+                            
+                            <button type="button" class="site-btn" id="bt_regist">Regist Now</button>
+                        </form>
+                        <h5>Already have an account? <a href="#">Log In!</a></h5>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="login__social__links">
+                        <h3>Login With:</h3>
+                        <ul>
+                            <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With Facebook</a>
+                            </li>
+                            <li><a href="#" class="google"><i class="fa fa-google"></i> Sign in With Google</a></li>
+                            <li><a href="#" class="twitter"><i class="fa fa-twitter"></i> Sign in With Twitter</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Signup Section End -->
+
+
+
+
+	<!-- Footer Section Begin -->
+	<th:block th:replace="~{fragments/footer :: footer}"/>
+	<!-- Footer Section End -->
+
+	<!-- Search model Begin -->
+	<th:block th:replace="~{fragments/search :: search}"/>
+	<!-- Search model end -->
+
+	<!-- Js Plugins -->
+	<th:block th:replace="~{fragments/footer_link :: footer_link}"/>
+	
+</body>
+</html>
+<script type="text/javascript">
+
+	//사용자가 로그인 시도 시, IDP 쪽으로 가져갈 링크 얻기 
+	function getAuthForm(sns){
+		//서버측에서 만들어놓은 링크를 가져오자, 비동기로 가져와야 새로고침없이 가져온다..
+		$.ajax({
+			url:"/rest/member/authform/"+sns,
+			type:"GET",
+			success:function(result, status, xhr){
+				//console.log("IDP 업체에 요청할 주소 및 파라미터는 "+result);
+				//SNS 로그인 인증화면 요청 
+				location.href=result;
+				//console.log(result);
+				
+			}
+		});
+		
+	}	
+	function regist(){
+		$("#form1").attr({
+			action:"/member/join",
+			method:"post"
+		});
+		$("#form1").submit();
+	}
+	
+	$(function(){
+		$("#bt_regist").click(function(){
+			regist();
+		})
+	})
+	
+</script>
+
+
+
+
+
