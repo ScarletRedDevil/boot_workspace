@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Anime Template">
+    <meta name="keywords" content="Anime, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Anime | Template</title>
+	
+	<!-- 헤더링크 -->
+	<th:block th:replace="~{fragments/header_link :: header_link}"/>
+	
+</head>
+
+<body>
+    <!-- Page Preloder -->
+	<th:block th:replace="~{fragments/preloader :: preloader}"/>
+	
+    <!-- Header Section Begin -->
+    <th:block th:replace="~{fragments/header :: header}"/>
+    <!-- Header End -->
+
+
+    <!-- Normal Breadcrumb Begin -->
+    <section class="normal-breadcrumb set-bg" data-setbg="/site/img/normal-breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="normal__breadcrumb__text">
+                        <h2>고객센터</h2>
+                        <p>공지사항</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Normal Breadcrumb End -->
+
+    <!-- Login Section Begin -->
+    <section class="login spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                
+                	<!-- 테이블 시작 -->
+					<div class="card card-info">
+					    <div class="card-header">
+					        <h3 class="card-title">글 상세내용</h3>
+					    </div>
+					
+					    <form id="form1" class="form-horizontal">
+					    	<input type="hidden" name="id" th:value="${notice.id}">
+					        <div class="card-body">
+					            <div class="form-group row">
+					                <label for="title" class="col-sm-2 col-form-label">제목</label>
+					                <div class="col-sm-10">
+					                    <input type="text" class="form-control" id="title" name="title" th:value="${notice.title}">
+					                </div>
+					            </div>
+					            
+					            <div class="form-group row">
+					                <label for="writer" class="col-sm-2 col-form-label">작성자</label>
+					                <div class="col-sm-10">
+					                    <input type="text" class="form-control" id="writer" name="writer" th:value="${notice.writer}">
+					                </div>
+					            </div>
+					            
+					            <div class="form-group row">
+					                <label for="content" class="col-sm-2 col-form-label">내용</label>
+					                <div class="col-sm-10">
+					                    <textarea class="form-control" id="content" name="content" th:text="${notice.content}"></textarea>
+					                </div>
+					            </div>
+					        </div>
+					
+					        <div class="card-footer">
+					            <button type="button" class="btn btn-info" id="bt_edit">수정</button>
+					            <button type="button" class="btn btn-info" id="bt_del">삭제</button>
+					            <button type="button" class="btn btn-info float-right" id="bt_list">목록보기</button>
+					        </div>
+					
+					    </form>
+					</div>                	
+                	<!-- 테이블 끝 -->
+                </div>
+            </div>       
+        </div>
+    </section>
+    <!-- Login Section End -->
+
+	
+
+
+
+	<!-- Footer Section Begin -->
+	<th:block th:replace="~{fragments/footer :: footer}"/>
+	<!-- Footer Section End -->
+
+	<!-- Search model Begin -->
+	<th:block th:replace="~{fragments/search :: search}"/>
+	<!-- Search model end -->
+
+	<!-- Js Plugins -->
+	<th:block th:replace="~{fragments/footer_link :: footer_link}"/>
+	
+</body>
+</html>
+<script type="text/javascript">
+	function edit(){
+		$("#form1").attr({
+			action:"/cs/notice/edit",
+			method:"post"
+		});
+		$("#form1").submit();
+	}
+	
+	function del(){
+		$("#form1").attr({
+			action:"/cs/notice/del",
+			method:"post"
+		});
+		$("#form1").submit();
+	}
+	
+	
+	$(function(){
+		$("#bt_edit").click(function(){
+			edit();			
+		});
+		
+		$("#bt_del").click(function(){
+			if(confirm("삭제하시겠어요?")){
+				del();			
+			}
+		});		
+		
+	});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

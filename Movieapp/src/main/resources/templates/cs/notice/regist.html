@@ -28,8 +28,8 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="normal__breadcrumb__text">
-                        <h2>Login</h2>
-                        <p>Welcome to the official Anime blog.</p>
+                        <h2>고객센터</h2>
+                        <p>공지사항</p>
                     </div>
                 </div>
             </div>
@@ -37,62 +37,57 @@
     </section>
     <!-- Normal Breadcrumb End -->
 
-	<!-- Login Section Begin -->
-	<section class="login spad">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<!-- 테이블 시작 -->
+    <!-- Login Section Begin -->
+    <section class="login spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                
+                	<!-- 테이블 시작 -->
 					<div class="card card-info">
-						<div class="card-header">
-							<h3 class="card-title">글쓰기</h3>
-						</div>
+					    <div class="card-header">
+					        <h3 class="card-title">Horizontal Form</h3>
+					    </div>
+					
+					    <form id="form1" class="form-horizontal">
+					        <div class="card-body">
+					            <div class="form-group row">
+					                <label for="title" class="col-sm-2 col-form-label">제목</label>
+					                <div class="col-sm-10">
+					                    <input type="text" class="form-control" id="title" name="title" placeholder="Your title...">
+					                </div>
+					            </div>
+					            
+					            <div class="form-group row">
+					                <label for="writer" class="col-sm-2 col-form-label">작성자</label>
+					                <div class="col-sm-10">
+					                    <input type="text" class="form-control" id="writer" name="writer" placeholder="Your id...">
+					                </div>
+					            </div>
+					            
+					            <div class="form-group row">
+					                <label for="content" class="col-sm-2 col-form-label">내용</label>
+					                <div class="col-sm-10">
+					                    <textarea class="form-control" id="content" name="content" placeholder="Your contents..."></textarea>
+					                </div>
+					            </div>
+					        </div>
+					
+					        <div class="card-footer">
+					            <button type="button" class="btn btn-info" id="bt_regist">글등록</button>
+					            <button type="button" class="btn btn-info float-right" id="bt_list">목록보기</button>
+					        </div>
+					
+					    </form>
+					</div>                	
+                	<!-- 테이블 끝 -->
+                </div>
+            </div>       
+        </div>
+    </section>
+    <!-- Login Section End -->
 
-
-						<form class="form-horizontal">
-							<div class="card-body">
-								<div class="form-group row">
-									<label for="title" class="col-sm-2 col-form-label">제목</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="title"
-											placeholder="제목">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label for="writer" class="col-sm-2 col-form-label">작성자</label>
-									<div class="col-sm-10">
-										<input type="password" class="form-control" id="writer" placeholder="작성자">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label for="content" class="col-sm-2 col-form-label">내용</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="content"
-											placeholder="내용">
-									</div>
-								</div>
-								<div class="form-group row">
-									<div class="offset-sm-2 col-sm-10">
-										
-									</div>
-								</div>
-							</div>
-
-							<div class="card-footer">
-								<button type="button" class="btn btn-info">글등록</button>
-								<button type="submit" class="btn btn-default float-right">Cancel</button>
-							</div>
-
-						</form>
-					</div>
-					<!-- 테이블 끝 -->
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- Login Section End -->
-
-
+	
 
 
 
@@ -110,34 +105,17 @@
 </body>
 </html>
 <script type="text/javascript">
-
-	//사용자가 로그인 시도 시, IDP 쪽으로 가져갈 링크 얻기 
-	function getAuthForm(sns){
-		//서버측에서 만들어놓은 링크를 가져오자, 비동기로 가져와야 새로고침없이 가져온다..
-		$.ajax({
-			url:"/rest/member/authform/"+sns,
-			type:"GET",
-			success:function(result, status, xhr){
-				//console.log("IDP 업체에 요청할 주소 및 파라미터는 "+result);
-				//SNS 로그인 인증화면 요청 
-				location.href=result;
-				//console.log(result);
-				
-			}
-		});
-	}
-	
-	function loginCheck(){
+	function regist(){
 		$("#form1").attr({
-			action:"/member/login", //spring security가 낚아 챔
+			action:"/cs/notice/regist",
 			method:"post"
-		});	
+		});
 		$("#form1").submit();
 	}
 	
 	$(function(){
-		$("#bt_login").click(function(){
-			loginCheck();
+		$("#bt_regist").click(function(){
+			regist();			
 		});		
 	});
 </script>
