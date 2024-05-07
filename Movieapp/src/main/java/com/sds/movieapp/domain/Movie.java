@@ -25,6 +25,9 @@ public class Movie {
 	private String repGenreNm;
 	private List<Director> directors;
 	private List<Company> companys;
+	private List<Genre> genres;
+	private List<Actor> actors;
+	private List<Nation> nations;
 	
 	//영화 웹요청 파라미터
 	private String curPage = "";//현재페이지

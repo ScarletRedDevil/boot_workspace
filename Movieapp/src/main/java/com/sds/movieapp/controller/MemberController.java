@@ -71,10 +71,10 @@ public class MemberController {
 	@PostMapping("/member/join")
 	public String join(Member member) {
 		
-		log.info("member uid "+member.getUid());
-		log.info("member uid "+member.getEmail());
-		log.info("member uid "+member.getNickname());
-		log.info("member uid "+member.getSns().getSns_name());
+		log.debug("member uid "+member.getUid());
+		log.debug("member uid "+member.getEmail());
+		log.debug("member uid "+member.getNickname());
+		log.debug("member uid "+member.getSns().getSns_name());
 		
 		//일반유저가 홈페이지 가입 시엔 USER 권한을 부여하자 
 		Role role = new Role();
@@ -123,7 +123,7 @@ public class MemberController {
 		 *응답정보에 들어있는 데이터 중 토큰 꺼내기 
 		 *--------------------------------*/
 		String body = responseEntity.getBody();
-		log.info("네이버가 보낸 인증 완료 정보는 "+body);
+		log.debug("네이버가 보낸 인증 완료 정보는 "+body);
 		
 		//String 에 불과한 자료에서 토큰을 접근하려면 JSON 을 파싱해야 한다..(json simple...구글)
 		//jackson lib 에서 지원하는 ObjectMapper도 있다 
@@ -154,7 +154,7 @@ public class MemberController {
 		ResponseEntity<String> userEntity=restTemplate2.exchange(userinfo_url , HttpMethod.GET , entity2 , String.class);//비동기요청
 		
 		String userBody = userEntity.getBody();
-		log.info(userBody);
+		log.debug(userBody);
 		
 		//사용자 정보 추출하기 
 		ObjectMapper objectMapper2 = new ObjectMapper();
@@ -194,7 +194,7 @@ public class MemberController {
 		
 		String code  = request.getParameter("code");
 		
-		log.info("카카오가 보내 임시 코드는 "+code);
+		log.debug("카카오가 보내 임시 코드는 "+code);
 		
 		/*-----------------------------------------------
 		 토큰 요청을 위한 헤더와 바디 구성 후 post 요청
@@ -218,7 +218,7 @@ public class MemberController {
 		ResponseEntity<String> responseEntity=restTemplate.exchange(kakaoLogin.getToken_request_url(), HttpMethod.POST, entity, String.class);
 		
 		String body = responseEntity.getBody();
-		log.info("카카오가 보낸 토큰을 포함한 응답정보는 "+body);
+		log.debug("카카오가 보낸 토큰을 포함한 응답정보는 "+body);
 		
 		ObjectMapper objectMapper = new ObjectMapper();
 		
@@ -244,7 +244,7 @@ public class MemberController {
 		ResponseEntity<String> responseEntity2 = restTemplate2.exchange(kakaoLogin.getUserinfo_url() , HttpMethod.GET, entity2, String.class);
 		String body2 = responseEntity2.getBody();
 		
-		log.info("카카오가 보낸 사용자 정보는 "+body2);
+		log.debug("카카오가 보낸 사용자 정보는 "+body2);
 		
 		
 	

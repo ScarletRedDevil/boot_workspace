@@ -52,7 +52,7 @@ public class MongoNoticeDAO implements NoticeDAO{
 	public void insert(Notice notice) throws NoticeException{
 		Notice dto = mongoTemplate.insert(notice);
 		
-		log.info("글 등록 결과는 "+dto);
+		log.debug("글 등록 결과는 "+dto);
 		
 		if(dto ==null) {
 			throw new NoticeException("글등록 실패");

@@ -8,12 +8,13 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.sds.movieapp.domain.Actor;
 import com.sds.movieapp.domain.Director;
+import com.sds.movieapp.domain.Genre;
 import com.sds.movieapp.domain.Movie;
 import com.sds.movieapp.domain.MovieType;
 import com.sds.movieapp.domain.Nation;
@@ -136,6 +137,41 @@ public class MovieApiService {
 			movie.setMovieNm(movieInfoResult.getMovieInfo().getMovieNm());//영화이름
 			movie.setPrdtYear(movieInfoResult.getMovieInfo().getPrdtYear());//제작일
 			movie.setOpenDt(movieInfoResult.getMovieInfo().getOpenDt());//개봉일
+			
+			//장르
+			List<Genre> genreList = new ArrayList<Genre>();
+			for(int i=0;i<movieInfoResult.getMovieInfo().getGenres().getGenre().size();i++) {
+				String genreNm = movieInfoResult.getMovieInfo().getGenres().getGenre().get(i).getGenreNm();
+				Genre genre = new Genre(); //empty
+				genre.setGenreNm(genreNm);//장르 명 넣기
+				genreList.add(genre); //장르 수집
+			}
+			movie.setGenres(genreList);//Movie DTO에 장르 List을 대입 
+			
+			//영화배우
+			List<Actor> actorList = new ArrayList<Actor>();
+			for(int i=0;i<movieInfoResult.getMovieInfo().getActors().getActor().size();i++) {
+				if(i>2)break;
+				String actorNm = movieInfoResult.getMovieInfo().getActors().getActor().get(i).getPeopleNm();
+				String actorNmEn = movieInfoResult.getMovieInfo().getActors().getActor().get(i).getPeopleNmEn();
+				Actor actor = new Actor(); //empty
+				actor.setPeopleNm(actorNm);//장르 명 넣기
+				actor.setPeopleNmEn(actorNmEn);//장르 명 넣기
+				actorList.add(actor); //장르 수집
+			}
+			movie.setActors(actorList);//Movie DTO에 배우 List 대입 
+			
+			//제작국가
+			List<Nation> nationList = new ArrayList<Nation>();
+			for(int i=0;i<movieInfoResult.getMovieInfo().getNations().getNation().size();i++) {
+				String nationNm = movieInfoResult.getMovieInfo().getNations().getNation().get(i).getNationNm();
+				
+				Nation nation = new Nation(); //empty
+				nation.setNationNm(nationNm);//장르 명 넣기
+				
+				nationList.add(nation); //장르 수집
+			}
+			movie.setNations(nationList);//Movie DTO에 국가List 대입 
 			
 			List<Director> directorList=new ArrayList<Director>();//감독을 채워넣을 List
 			for(int i=0;i<movieInfoResult.getMovieInfo().getDirectors().getDirector().size();i++) {

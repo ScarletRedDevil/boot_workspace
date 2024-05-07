@@ -64,7 +64,7 @@ public class NoticeController {
 	//글 한건 요청 처리 
 	@GetMapping("/cs/notice/detail")
 	public String getDetail(Notice notice, Model model) {
-		log.info("선택한 글의 id는 "+notice.getId());
+		log.debug("선택한 글의 id는 "+notice.getId());
 		
 		Notice dto = noticeService.select(notice);
 		model.addAttribute("notice", dto);
