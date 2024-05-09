@@ -17,47 +17,57 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
-//모든 컨트롤러에서 사용자명을 저장할 수 있도록 aop 구현
+//모든 컨트롤러에서 사용자명을 저장할 수 있도록 aop로 구현 
 
 @Slf4j
 @Aspect
 @Component
 public class AuthAspect {
-	// 포함시킬 포인트컷
+	
+	//포함시킬 포인터컷
 	@Pointcut("execution(public * com.sds.movieapp.controller..*(..))")
-	public void includeExecution() {
-	}
-
-	// 제외시킬 포인트컷
+	public void includeExecution() {}
+	
+	//제외시킬 포인트컷
 	@Pointcut("!execution(public * com.sds.movieapp.controller.Rest*Controller.*(..))")
-	public void excludeExecution() {
-	}
-
-	// 하위컨트롤러로 들어가는 메서드 호출을 가로채서 사용자 이름을 심어놓아야 header.html에 사용자이름을 출력할 수 있음.
+	public void excludeExecution() {}
+	
+	//하위 컨트롤러로 들어가는 메서드 호출을 가로채서, 사용자 이름을 심어놓아야, header.html에서 사용자이름을 출력할 수 있다
 	@Around("includeExecution() && excludeExecution()")
-	public Object checkSession(ProceedingJoinPoint joinPoint) throws Throwable {
-		Object obj = null;
-
-		// 스프링으로부터 세션 얻어오기
-		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+	public Object checkSession(ProceedingJoinPoint joinPoint) throws Throwable{
+		Object obj=null;
+		
+		
+		//스프링으로부터 세션을 얻기 
+		ServletRequestAttributes attr = (ServletRequestAttributes)RequestContextHolder.getRequestAttributes();
 		HttpServletRequest request = attr.getRequest();
-
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//		String nickname = auth.getName();
-
-		// 아래 if문은 로그인한 경우에 동작함.
-		if (auth.getPrincipal() instanceof CustomUserDetails) {
-			CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
+		
+		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+		
+		//auth.getPrincipal() 로그인 하지 않았을 경우 스프링 시큐리티가 auth.getPrincipal() 메서드의 반환값으로 
+		//anonymousUser 를 반환함..따라서 조건문으로 처리해야 함 
+		//아래의 if문은 로그인한 경우 동작함
+		if(auth.getPrincipal() instanceof CustomUserDetails) {
+			CustomUserDetails userDetails = (CustomUserDetails)auth.getPrincipal();
 			Member member = userDetails.getMember();
-
-			request.setAttribute("nickname", member.getNickname());//우측 사용자명 보여주기
-			request.setAttribute("member", member);//모든 컨트롤러에 이름 가져오기
-			//만약 다른 정보도 받아오고 싶다면 위처럼 추가하면 됨.
-		}
+			
+			request.setAttribute("nickname", member.getNickname());//우측 상단의 사용자명을 위한 처리 
+			request.setAttribute("member", member);
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("member", member);
+		} 
 		
 		obj = joinPoint.proceed();
-
+		
 		return obj;
 	}
-
 }
+
+
+
+
+
+
+
+

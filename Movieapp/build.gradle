@@ -72,6 +72,16 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-aop
 	implementation 'org.springframework.boot:spring-boot-starter-aop:3.2.5'
 	
+	//komoran(한국어 형태소 분석기)
+	implementation files('lib/aho-corasick-1.1.0.jar')
+	implementation files('lib/commons-1.0.1.jar')
+	implementation files('lib/core.jar')
+	implementation files('lib/elasticsearch-plugin-1.0-SNAPSHOT.jar')
+	
+	//apache mahout (ML 알고리즘)
+	// https://mvnrepository.com/artifact/org.apache.mahout/mahout-core
+	implementation 'org.apache.mahout:mahout-core:0.9'
+	
 	
 }
 

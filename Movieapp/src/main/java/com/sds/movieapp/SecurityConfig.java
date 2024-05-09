@@ -38,6 +38,9 @@ public class SecurityConfig {
 					.requestMatchers("/member/sns/naver/callback").permitAll() 
 					.requestMatchers("/member/sns/kakao/callback").permitAll() 
 					.requestMatchers("/rest/member/authform/**").permitAll() 
+					
+					//영화관련
+					.requestMatchers("/movie/comments").hasAuthority("USER")
 					.anyRequest().authenticated()
 			);
 	

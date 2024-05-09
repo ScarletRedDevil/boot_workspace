@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="org.springframework.stereotype.Controller"/>
-    <fullyQualifiedTypeName name="org.springframework.data.mongodb.core.MongoClientSettingsFactoryBean"/>
-    <fullyQualifiedTypeName name="com.mongodb.client.MongoClient"/>
-    <fullyQualifiedTypeName name="com.mongodb.client.MongoClients"/>
-    <fullyQualifiedTypeName name="org.springframework.context.annotation.Bean"/>
-    <fullyQualifiedTypeName name="java.util.Map"/>
-    <fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
-    <fullyQualifiedTypeName name="org.springframework.data.mongodb.core.MongoTemplate"/>
-    <fullyQualifiedTypeName name="jakarta.websocket.server.ServerEndpoint"/>
-    <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
     <fullyQualifiedTypeName name="com.sds.movieapp.model.cs.notice.NoticeDAO"/>
     <fullyQualifiedTypeName name="com.sds.movieapp.model.cs.notice.NoticeService"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ExceptionHandler"/>
@@ -21,7 +11,6 @@
     <fullyQualifiedTypeName name="com.mongodb.client.result.DeleteResult"/>
     <fullyQualifiedTypeName name="com.sds.movieapp.exception.NoticeException"/>
     <fullyQualifiedTypeName name="com.sds.movieapp.domain.Notice"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
     <fullyQualifiedTypeName name="org.springframework.web.servlet.ModelAndView"/>
     <fullyQualifiedTypeName name="org.springframework.util.MultiValueMap"/>
     <fullyQualifiedTypeName name="com.sds.movieapp.sns.KaKaoLogin"/>
@@ -29,19 +18,15 @@
     <fullyQualifiedTypeName name="org.springframework.http.HttpEntity"/>
     <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
     <fullyQualifiedTypeName name="org.springframework.web.client.RestTemplate"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RestController"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
     <fullyQualifiedTypeName name="org.springframework.security.core.Authentication"/>
     <fullyQualifiedTypeName name="org.springframework.security.core.context.SecurityContextHolder"/>
     <fullyQualifiedTypeName name="com.sds.movieapp.domain.CustomUserDetails"/>
     <fullyQualifiedTypeName name="org.springframework.context.annotation.Configuration"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="com.sds.movieapp.model.movie.MovieService"/>
-    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="org.springframework.web.context.request.RequestContextHolder"/>
     <fullyQualifiedTypeName name="org.springframework.web.context.request.ServletRequestAttributes"/>
     <fullyQualifiedTypeName name="jakarta.servlet.http.HttpServletRequest"/>
-    <fullyQualifiedTypeName name="lombok.extern.slf4j.Slf4j"/>
     <fullyQualifiedTypeName name="org.aspectj.lang.annotation.Aspect"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Component"/>
     <fullyQualifiedTypeName name="org.aspectj.lang.annotation.Pointcut"/>
@@ -60,4 +45,19 @@
     <fullyQualifiedTypeName name="org.springframework.data.annotation.Id"/>
     <fullyQualifiedTypeName name="com.sds.movieapp.document.Movie"/>
     <fullyQualifiedTypeName name="com.sds.movieapp.document.Member"/>
+    <fullyQualifiedTypeName name="com.sds.movieapp.model.comments.CommentsDAO"/>
+    <fullyQualifiedTypeName name="org.springframework.data.mongodb.core.MongoTemplate"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RestController"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
+    <fullyQualifiedTypeName name="com.sds.movieapp.exception.CommentsException"/>
+    <fullyQualifiedTypeName name="org.springframework.context.annotation.Bean"/>
+    <fullyQualifiedTypeName name="org.springframework.core.io.ClassPathResource"/>
+    <fullyQualifiedTypeName name="kr.co.shineware.nlp.komoran.core.Komoran"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="kr.co.shineware.nlp.komoran.model.KomoranResult"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="kr.co.shineware.util.common.model.Pair"/>
+    <fullyQualifiedTypeName name="lombok.extern.slf4j.Slf4j"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Controller"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
 </qualifiedTypeNameHistroy>
