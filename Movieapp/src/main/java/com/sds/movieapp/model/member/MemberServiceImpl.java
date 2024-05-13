@@ -60,6 +60,10 @@ public class MemberServiceImpl implements MemberService{
 		
 	}
 	
+	@Override
+	public Member selectByUid(String uid) {
+		return memberDAO.selectByUid(uid);
+	}
 }
 
 

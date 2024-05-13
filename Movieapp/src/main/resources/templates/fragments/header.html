@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-lg-1">
                     <div class="header__logo">
-                        <a href="/">
+                        <a href="/site/index.html">
                             <img src="/site/img/logo.png" alt="">
                         </a>
                     </div>
@@ -40,18 +40,21 @@
                 </div>
                 <div class="col-lg-2">
                     <div class="header__right">
-                        <th:block th:with="name=''">
+                        
                         	<!-- 익명사용자가 아니라면 사용자명을 로그인한 사용자명으로 대체 -->
-	                        <th:block th:if="${nickname !=null && nickname !='anonymousUser'}" th:with="name=${nickname}">
-		                       
+	                        <th:block th:if="${session.member !=null}">
 		                        <!-- 로그인 한 경우엔 사용자 이름이 뜨게.. -->
-		                        <a href="#" class="search-switch" th:text="${name}"></a>
-		                        
+		                        <span>
+		                        	<a href="#" th:text="${session.member.nickname+'님'}"></a>
+		                        	<a href="javascript:logout()">logout</a>
+		                        </span>
+	                        </th:block>
+		                    
+		                    <th:block th:unless="${session.member !=null}">    
 		                        <!-- 그렇지 않은 경우 아이콘 뜨게.. -->
 		                        <a href="/member/loginform"><span class="icon_profile"></span></a>
-		                       
-	                        </th:block>
-                        </th:block>
+                        	</th:block>
+                        
                     </div>
                 </div>
             </div>

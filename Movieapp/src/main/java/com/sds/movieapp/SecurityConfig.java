@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 //스프링 3.0 부터 스프링빈 xml 파일을 대신하여 어노테이션 기반으로 설정할 수 있도록 지원..
 /*
@@ -32,21 +33,26 @@ public class SecurityConfig {
 					(auth) -> auth
 					.requestMatchers("/site/**","/").permitAll() 
 					.requestMatchers("/member/loginform", "/member/login","/member/joinform","/member/join").permitAll() 
-					//롤은 권한의 집합을 의미하며, hasRole() 메서드는 롤을 사용하게 되고, 내부적으로 ROLE_ 접두어가 붙음
-//					.requestMatchers("/cs/notice/list").hasRole("USER") //권한명은 개발자가 회원가입 시 지정하면 됨..
-					.requestMatchers("cs/notice/**").hasAuthority("USER")
-					.requestMatchers("/member/sns/naver/callback").permitAll() 
-					.requestMatchers("/member/sns/kakao/callback").permitAll() 
-					.requestMatchers("/rest/member/authform/**").permitAll() 
+					//롤은 권한의 집합을 의미하며, hasRole()  메서드는 롤을 사용하게 되고, 내부적으로 ROLE_  접두어가 붙음
+					//.requestMatchers("/cs/notice/list").hasRole("USER") //권한명은 개발자가 회원가입 시 지정하면 됨..
+					//.requestMatchers("/cs/notice/**").hasAuthority("USER")
+					.requestMatchers("/cs/notice/**").permitAll()
+					.requestMatchers("/rest/member/authform/**").permitAll()
+					.requestMatchers("/member/sns/naver/callback").permitAll()
+					.requestMatchers("/member/sns/kakao/callback").permitAll()
 					
-					//영화관련
+					//영화관련 
 					.requestMatchers("/movie/comments").hasAuthority("USER")
+					.requestMatchers("/movie/recommend/list").hasAuthority("USER")
+					
 					.anyRequest().authenticated()
 			);
 	
 		httpSecurity
 			.formLogin((auth)->
-				auth.loginPage("/member/loginform").loginProcessingUrl("/member/login")
+				auth.loginPage("/member/loginform")
+				.successHandler(loginEventHandler()) //개발자가 정의한 핸들러 등록...
+				.loginProcessingUrl("/member/login")
 					.usernameParameter("uid")
 					.passwordParameter("password")
 			);
@@ -55,6 +61,17 @@ public class SecurityConfig {
 		httpSecurity.csrf((auth)->auth.disable());
 		
 		return httpSecurity.build();
+	}
+
+	/*-----------------------------------------------------------
+	  OAuth 유져와  시큐리티를 이용한 홈페이지 로그인 유저가 session에 공통의 member DTO를
+	  갖고 있게 하면, header 뿐 아니라, 회원 정보를 세션에서 꺼내올때 member로 통일 할 수 있다.. 
+	  이를 위해, 시큐리티한테 모든걸 맡기지 말고, 로그인 하는 시점을 낚아 채서, 억지로 session 에 
+	  member DTO를 심어버리자..
+	-----------------------------------------------------------*/
+	@Bean 
+	public AuthenticationSuccessHandler loginEventHandler() {
+		return new LoginEventHandler();
 	}
 	
 }
