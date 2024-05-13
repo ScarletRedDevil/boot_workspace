@@ -13,8 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sds.movieapp.domain.CommentsDoc;
+import com.sds.movieapp.domain.Movie;
 import com.sds.movieapp.domain.MovieDoc;
 import com.sds.movieapp.model.comments.CommentsDocDAO;
+import com.sds.movieapp.model.movie.MovieApiService;
+import com.sds.movieapp.model.movie.MovieDAO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,6 +30,15 @@ public class RecommendServiceImpl implements RecommendService{
 	
 	@Autowired
 	private MovieDocDAO movieDocDAO;
+	
+	@Autowired
+	private MovieApiService movieApiService;
+	
+	//mysql의 영화정보에 대한 CRUD DAO
+	@Autowired
+	private MovieDAO movieDAO;
+	
+	
 	
 	private double minScore=1.0;
 	
@@ -76,7 +88,7 @@ public class RecommendServiceImpl implements RecommendService{
 		Map<Long, MovieDoc> candiMap = new HashMap();//리스트를 맵으로 전환 목적
 		movieList.stream().forEach(m-> candiMap.put((long)m.getMovie_idx(), m)); //맵에 옮겨 담기 완료
 		
-		//모든 영화에 대한 계산결과를 담아놓ㅇ르 Map - 영화 idx
+		//모든 영화에 대한 계산 결과를 담아놓을 Map  -  영화idx - 23점
 		Map<Long, Double> calculatedMap = new HashMap();
 		
 		for(MovieDoc movieDoc : likedMovies) { //긍정 평가한 영화들만큼...
@@ -86,17 +98,28 @@ public class RecommendServiceImpl implements RecommendService{
 				MovieDoc candi = entry.getValue();
 				
 				double score = calculate(movieDoc, candi);//유사도 메서드 호출()
-				calculatedMap.put(entry.getKey(),score);
-				
+				calculatedMap.put(entry.getKey() ,  score);
 			}
 		}
-		log.debug("계산 결과 사이즈 " +calculatedMap.size());
-		for(Map.Entry<Long, Double>entry :calculatedMap.entrySet()) {
-			MovieDoc movieDoc = metadataMap.get(entry.getKey());
-			log.debug(movieDoc.getMovieNm()+" 의 유사도는 "+entry.getValue());
+		
+		log.debug("계산 결과 사이즈 "+calculatedMap.size());
+		
+		for( Map.Entry<Long, Double> entry : calculatedMap.entrySet()) {
+			MovieDoc movieDoc = candiMap.get(entry.getKey());
+			log.debug(movieDoc.getMovieNm()+" 의 유사도는 "+entry.getValue());			
 		}
-
-		return null;
+		
+		//최총 결과를 담을 리스트(컨트롤러에게 보내주기 위함)
+		List<Movie>  resultList = new ArrayList();
+		
+		//List, Set만 stream 을 생성할 수 있고, Map은 불가 따라서  map은 Set으로 변환한 후 Stream생성
+		resultList = calculatedMap.entrySet().stream()
+			.sorted(Map.Entry.<Long, Double>comparingByValue().reversed())
+			.limit(3)
+			.map(e ->  movieApiService.getMovie(movieDAO.select((int)(long)e.getKey())))
+			.collect(Collectors.toList());
+		 
+		return resultList;
 	}
 	
 	//유사도 계산 (넘겨받은 두 영화 사이의 유사도 측정)

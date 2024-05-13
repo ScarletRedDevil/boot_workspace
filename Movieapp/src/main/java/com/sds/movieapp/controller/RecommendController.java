@@ -1,7 +1,10 @@
 package com.sds.movieapp.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.sds.movieapp.domain.Member;
@@ -20,11 +23,12 @@ public class RecommendController {
 	private RecommendService recommendService;
 	
 	@GetMapping("/movie/recommend/list")
-	public String getList(HttpSession session) {
+	public String getList(HttpSession session, Model model) {
 		Member member =(Member)session.getAttribute("member");
 		
 		//3단계 : 추천영화 목록 가져오기 
-		recommendService.getList(member.getMember_idx());
+		List recommendList = recommendService.getList(member.getMember_idx());
+		model.addAttribute("recommendList", recommendList);//저장 
 		
 		return "recommend/list";
 	}
