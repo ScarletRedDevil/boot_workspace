@@ -1,5 +1,6 @@
 package com.sds.movieapp.controller;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,6 +9,11 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -207,6 +213,12 @@ public class MemberController {
 		
 		//세션을 할당하여, 메인으로 보낸다..
 		session.setAttribute("member", dto);//member는 idx가 없다. dto를 넣어줘야함
+		
+		//스프링 시큐리티의 권한부여를 강제 처리 
+		//CustomUserDetails로부터 자동으로 값 할당이 아니라 개발자가 수동으로 시큐리티에 정보 주입
+		Authentication auth = new UsernamePasswordAuthenticationToken(member.getNickname(), Collections.singletonList(new SimpleGrantedAuthority("USER")));
+		SecurityContextHolder.getContext().setAuthentication(auth);
+		session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
 		
 		//로그인 성공 후 홈페이지의 추천으로 보내기(메인이 무겁고 느림)
 		ModelAndView mav = new ModelAndView("redirect:/movie/recommend/list");

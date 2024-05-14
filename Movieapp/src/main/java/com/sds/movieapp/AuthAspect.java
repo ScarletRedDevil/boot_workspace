@@ -20,8 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 //모든 컨트롤러에서 사용자명을 저장할 수 있도록 aop로 구현 
 
 @Slf4j
-@Aspect
-@Component
+//@Aspect
+//@Component //이제 스프링시큐리티가 로그인 자격을 확인하므로 여기서 하는건 중복행동이 됨. 간섭하지 않도록 지워야함
 public class AuthAspect {
 	
 	//포함시킬 포인터컷

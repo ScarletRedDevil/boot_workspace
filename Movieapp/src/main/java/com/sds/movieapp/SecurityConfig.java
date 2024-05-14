@@ -52,10 +52,20 @@ public class SecurityConfig {
 			.formLogin((auth)->
 				auth.loginPage("/member/loginform")
 				.successHandler(loginEventHandler()) //개발자가 정의한 핸들러 등록...
-				.loginProcessingUrl("/member/login")
+				.loginProcessingUrl("/member/login")//권한없으면 여기로 보냄
 					.usernameParameter("uid")
 					.passwordParameter("password")
 			);
+		
+		//로그아웃 설정
+		httpSecurity
+		.logout(logout -> logout
+				.logoutUrl("/member/logout")//로그아웃 요청 페이지 경로 
+				.logoutSuccessUrl("/")//로그아웃 처리후 보내버릴 링크
+				.invalidateHttpSession(true)
+				.clearAuthentication(true)
+				.deleteCookies("JSESSIONID")
+				);
 		
 		//토큰 비활성화 
 		httpSecurity.csrf((auth)->auth.disable());

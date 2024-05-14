@@ -30,32 +30,35 @@ public class MemberServiceImpl implements MemberService{
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Transactional
-	public void regist(Member member) throws MemberException{
-		//홈페이지 회원의 sns 정보 가져오기
+	public void regist(Member member) throws MemberException {
+		// 홈페이지 회원의 sns 정보 가져오기
 		Sns sns = snsDAO.selectByName(member.getSns().getSns_name());
-		member.setSns(sns);//sns_idx가 채워진 DTO를 다시 Member DTO  에 대입
-		
-		//회원의 권한 가져오기
+		member.setSns(sns);// sns_idx가 채워진 DTO를 다시 Member DTO 에 대입
+
+		// 회원의 권한 가져오기
 		Role role = roleDAO.selectByName(member.getRole().getRole_name());
-		member.setRole(role); //role_idx가 채워진 DTO를 다시 Member DTO  에 대입
-		
+		member.setRole(role); // role_idx가 채워진 DTO를 다시 Member DTO 에 대입
+
 		int result = memberDAO.insert(member);
-		
-		if(result <1) {
+
+		if (result < 1) {
 			throw new MemberException("회원 등록 실패");
 		}
-		
-		//회원 상세 정보 등록 
-		MemberDetail memberDetail = member.getMemberDetail();
-		memberDetail.setMember(member);
-		memberDetail.setPassword(bCryptPasswordEncoder.encode(memberDetail.getPassword())); 
-		
-		//비밀번호 암호화 처리 
-		
-		
-		result = memberDetailDAO.insert(memberDetail);//회원 상세 정보 등록
-		if(result <1) {
-			throw new MemberException("회원 추가정보 등록 실패");
+
+		// 현재기준 회원상세정보를 입력처리해야되는 회원은 홈페이지 회원이므로 조건문 처리
+		if (sns.getSns_name().equals("homepage")) {
+
+			// 회원 상세 정보 등록
+			MemberDetail memberDetail = member.getMemberDetail();
+			memberDetail.setMember(member);
+			memberDetail.setPassword(bCryptPasswordEncoder.encode(memberDetail.getPassword()));
+
+			// 비밀번호 암호화 처리
+
+			result = memberDetailDAO.insert(memberDetail);// 회원 상세 정보 등록
+			if (result < 1) {
+				throw new MemberException("회원 추가정보 등록 실패");
+			}
 		}
 		
 	}
