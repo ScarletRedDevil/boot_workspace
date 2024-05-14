@@ -42,8 +42,9 @@ public class SecurityConfig {
 					.requestMatchers("/member/sns/kakao/callback").permitAll()
 					
 					//영화관련 
-					.requestMatchers("/movie/comments").hasAuthority("USER")
-					.requestMatchers("/movie/recommend/list").hasAuthority("USER")
+					.requestMatchers("/movie/detail").hasAnyAuthority("USER")
+					.requestMatchers("/movie/comments").hasAnyAuthority("USER")
+					.requestMatchers("/movie/recommend/list").hasAnyAuthority("USER")
 					
 					.anyRequest().authenticated()
 			);

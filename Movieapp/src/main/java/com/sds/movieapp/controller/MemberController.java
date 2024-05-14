@@ -205,6 +205,7 @@ public class MemberController {
 		member.setSns(snsService.selectByName("naver")); //얘는 Role이 보유한거라 서비스로 한번 돌려서 잡아옴 
 		member.setRole(roleService.selectByName("USER"));
 		
+		
 		//중복된 회원이 없다면, 가입을 시킨다...(즉 최초 한번은 가입을 회원 정보를 보관해놓자..)
 		Member dto = memberService.selectByUid(id);
 		if(dto==null) { //중복회원이 없을때만 가입
@@ -212,13 +213,15 @@ public class MemberController {
 		}
 		
 		//세션을 할당하여, 메인으로 보낸다..
+		log.debug("SNS 로그인에서 부여할 유저 권한은 "+dto.getRole().getRole_idx());
 		session.setAttribute("member", dto);//member는 idx가 없다. dto를 넣어줘야함
 		
 		//스프링 시큐리티의 권한부여를 강제 처리 
 		//CustomUserDetails로부터 자동으로 값 할당이 아니라 개발자가 수동으로 시큐리티에 정보 주입
-		Authentication auth = new UsernamePasswordAuthenticationToken(member.getNickname(), Collections.singletonList(new SimpleGrantedAuthority("USER")));
+		Authentication auth = new UsernamePasswordAuthenticationToken(member.getNickname(),null,  Collections.singletonList(new SimpleGrantedAuthority("USER")));
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
+		
 		
 		//로그인 성공 후 홈페이지의 추천으로 보내기(메인이 무겁고 느림)
 		ModelAndView mav = new ModelAndView("redirect:/movie/recommend/list");
